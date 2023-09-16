@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import item from '../dummy/item.json';
 import '../App.css';
 import Pagination from './pagination';
+import { Link } from 'react-router-dom';
 
 export default function Post() {
     const [postData, setPostData] = useState([]);
@@ -29,20 +30,24 @@ export default function Post() {
         setCurrentPage(pageNumber);
     };
 
+    console.log(postData)
+
     return (
-        <div className='w-full flex'>
-            <div className='w-[50rem] border border-[#d6d6d6]'>
-                {currentItems.map((item) => (
-                    <div key={item._source.item_idx} className='w-full p-3 pr-8'>
-                        <div className='w-full h-fit mb-5'>
-                            <div className='flex mb-2 space-x-2 font-bold'>
-                                <h1>{item._source.subject}</h1>
-                                <span className='text-[#a5a5a5]'>{item._source.created_at}</span>
+        <div className='w-full flex justify-center'>
+            <div className='w-[40rem] border border-[#d6d6d6]'>
+                {currentItems.map((item, index) => (
+                    <Link to={`/board/${item._source.item_idx}`}>
+                        <div key={index} className='w-full p-3 pr-8'>
+                            <div className='w-full h-fit mb-5'>
+                                <div className='flex mb-2 space-x-2 font-bold'>
+                                    <h1>{item._source.subject}</h1>
+                                    <span className='text-[#a5a5a5]'>{item._source.created_at}</span>
+                                </div>
+                                <span className='w-full break-words text-ellipsis overflow-hidden theboki'>{item._source.contents}</span>
                             </div>
-                            <span className='w-full break-words text-ellipsis overflow-hidden theboki'>{item._source.contents}</span>
+                            <div className='w-full h-0.5 bg-[#d6d6d6]' />
                         </div>
-                        <div className='w-full h-0.5 bg-[#d6d6d6]' />
-                    </div>
+                    </Link>
                 ))}
 
                 {/* 페이지네이션 컴포넌트 */}
@@ -53,11 +58,12 @@ export default function Post() {
                     currentPage={currentPage}
                 />
             </div>
-            <div className='w-[40rem] border border-[#d6d6d6] p-3'>
+            <div className='w-[30rem] border border-[#d6d6d6] p-3'>
                 <div className='w-full h-fit pb-3'>
                     <span className='flex'><p className='font-bold text-red-600'>홍길동</p>님을 위한 추천글</span>
                 </div>
                 <div className='w-full h-0.5 bg-[#d6d6d6]' />
+
             </div>
         </div>
     );
