@@ -3,24 +3,24 @@ import item from '../dummy/item.json';
 import '../App.css';
 import BackButton from '../component/backbutton';
 import TopButton from '../component/topbutton';
+import { useParams } from 'react-router-dom';
 
-export default function BoardComponents(postData) {
+export default function BoardComponents() {
     // 선택한 item_idx에 해당하는 게시글 찾기
+    const { item_idx } = useParams();
 
+    // 선택한 item_idx에 해당하는 게시글 찾기
+    const selectedPost = item.find((post) => post._source.item_idx === parseInt(item_idx));
+
+
+
+    const { subject, author_nick, created_at, contents, replies } = selectedPost._source;
 
     // 선택한 게시글이 없을 경우 예외 처리
-    if (!postData) {
+    if (!selectedPost) {
         return <div>게시글을 찾을 수 없습니다.</div>;
     }
-    const comments = [
-        { count: 5, content: "덧글 내용 1" },
-        { count: 3, content: "덧글 내용 2" },
-        { count: 2, content: "덧글 내용 3" },
-        // ... 다른 덧글들
-    ];
 
-
-    console.log(postData);
 
     return (
         <div className='w-full flex p-3 justify-center mx-auto'>
@@ -28,28 +28,28 @@ export default function BoardComponents(postData) {
                 <div className='w-[40rem] border border-[#d6d6d6] px-3 py-5'>
                     <div className='flex'>
                         <div className='w-0.5 h-3 text-red-600' />
-                        <h1 className='w-fit p-1 px-3 pb-5 text-2xl font-medium'>고대 생명공 또는 바시의</h1>
+                        <h1 className='w-fit p-1 px-3 pb-5 text-2xl font-medium'>{subject}</h1>
                     </div>
                     <div className='w-full h-0.5 bg-[#d6d6d6]' />
                     <div className='p-2.5 space-x-3 text-[#646464]'>
-                        <span className='text-[#2f9741] font-bold'>이름</span>
+                        <span className='text-[#2f9741] font-bold'>{author_nick}</span>
                         <span>조회수</span>
-                        <span>날짜</span>
+                        <span>{created_at}</span>
                     </div>
                     <div className='w-full h-0.5 bg-[#d6d6d6]' />
                     <div className='p-2.5'>
-                        내용
+                        {contents}
                     </div>
                 </div>
                 <div className='w-[40rem] border border-[#d6d6d6] px-3 py-5 space-y-3'>
                     <div>
-                        덧글 count
+                        덧글 <span className='text-[red]'>{replies.length}</span>
                     </div>
-                    {comments.map((comment, index) => (
+                    {replies.map((comment, index) => (
                         <div>
                             <div className='w-full h-0.5 bg-[#d6d6d6]' />
-                            <div>
-                                {comment.content}
+                            <div className='pt-3'>
+                                {comment}
                             </div>
                         </div>
                     ))}

@@ -36,8 +36,8 @@ export default function Post() {
         <div className='w-full flex justify-center'>
             <div className='w-[40rem] border border-[#d6d6d6]'>
                 {currentItems.map((item, index) => (
-                    <Link to={`/board/${item._source.item_idx}`}>
-                        <div key={index} className='w-full p-3 pr-8'>
+                    <Link to={`/board/${item._source.item_idx}`} key={index}>
+                        <div className='w-full p-3 pr-8'>
                             <div className='w-full h-fit mb-5'>
                                 <div className='flex mb-2 space-x-2 font-bold'>
                                     <h1>{item._source.subject}</h1>

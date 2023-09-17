@@ -10,6 +10,7 @@ function App() {
   const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
     // JSON 파일의 경로를 설정합니다.
     setPostData(item); // 배열로 변환하여 설정합니다.
@@ -23,7 +24,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/board/:item_idx' element={<Board postData={postData} />} />
+            <Route path='/board/:item_idx' element={<Board />} />
           </Routes>
         </BrowserRouter>
       </div>
