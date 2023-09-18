@@ -3,6 +3,7 @@ import item from '../dummy/item.json';
 import '../App.css';
 import Pagination from './pagination';
 import { Link } from 'react-router-dom';
+import replie from "../icons/replie.png";
 
 export default function Post() {
     const [postData, setPostData] = useState([]);
@@ -42,6 +43,14 @@ export default function Post() {
                                 <div className='flex mb-2 space-x-2 font-bold'>
                                     <h1>{item._source.subject}</h1>
                                     <span className='text-[#a5a5a5]'>{item._source.created_at}</span>
+                                    <span className='text-[#a5a5a5] flex'>
+                                        <img
+                                            className='w-5 h-5 flex self-center mt-1 mr-1'
+                                            src={replie}
+                                            alt='d'
+                                        />
+                                        {item._source.replies.length}
+                                    </span>
                                 </div>
                                 <span className='w-full break-words text-ellipsis overflow-hidden theboki'>{item._source.contents}</span>
                             </div>
