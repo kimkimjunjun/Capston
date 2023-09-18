@@ -33,8 +33,8 @@ export default function Post() {
     console.log(postData)
 
     return (
-        <div className='w-full flex justify-center'>
-            <div className='w-[40rem] border border-[#d6d6d6]'>
+        <div className='w-full flex justify-center p-2'>
+            <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
                 {currentItems.map((item, index) => (
                     <Link to={`/board/${item._source.item_idx}`} key={index}>
                         <div className='w-full p-3 pr-8'>
@@ -58,7 +58,7 @@ export default function Post() {
                     currentPage={currentPage}
                 />
             </div>
-            <div className='w-[30rem] border border-[#d6d6d6] p-3'>
+            <div className='w-[30rem] border border-[#d6d6d6] p-3 ml-2 bg-white'>
                 <div className='w-full h-fit pb-3'>
                     <span className='flex'><p className='font-bold text-red-600'>홍길동</p>님을 위한 추천글</span>
                 </div>
