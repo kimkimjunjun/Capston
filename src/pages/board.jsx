@@ -4,10 +4,10 @@ import '../App.css';
 import BackButton from '../component/backbutton';
 import TopButton from '../component/topbutton';
 import { useParams } from 'react-router-dom';
-import Search from '../component/header/search';
 import Header from '../component/header/header';
+import SearchComponents from '../component/header/search';
 
-export default function BoardComponents() {
+export default function Board() {
     // 선택한 item_idx에 해당하는 게시글 찾기
     const { item_idx } = useParams();
 
@@ -24,11 +24,11 @@ export default function BoardComponents() {
 
     return (
         <div>
-            <Search />
+            <SearchComponents />
             <Header />
             <div className='w-full flex justify-center mx-auto bg-gray-200'>
-                <div className='bg-white p-2'>
-                    <div className='w-[40rem] border border-[#d6d6d6] px-3 py-5'>
+                <div className='p-2'>
+                    <div className='w-[40rem] border border-[#d6d6d6] bg-white px-3 py-5'>
                         <div className='flex'>
                             <div className='w-0.5 h-3 text-red-600' />
                             <h1 className='w-fit p-1 px-3 pb-5 text-2xl font-medium'>{subject}</h1>
@@ -44,7 +44,7 @@ export default function BoardComponents() {
                             {contents}
                         </div>
                     </div>
-                    <div className='w-[40rem] border border-[#d6d6d6] px-3 py-5 space-y-3'>
+                    <div className='w-[40rem] border border-[#d6d6d6] bg-white px-3 py-5 space-y-3'>
                         <div>
                             덧글 <span className='text-[red]'>{replies.length}</span>
                         </div>
@@ -62,15 +62,15 @@ export default function BoardComponents() {
                         <TopButton />
                     </div>
                 </div>
-                <div className='bg-white p-2'>
-                    <div className='w-[30rem] h-screen border border-[#d6d6d6] p-3'>
+                <div className='pt-2'>
+                    <div className='w-[30rem] h-screen border border-[#d6d6d6] bg-white p-3'>
                         <div className='w-full px-5 pb-3'>
                             <span className='flex'>유사 추천글</span>
                         </div>
                         <div className='w-full h-0.5 bg-[#d6d6d6]' />
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

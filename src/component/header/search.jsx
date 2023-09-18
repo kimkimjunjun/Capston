@@ -3,7 +3,7 @@ import searchicon from "../../icons/searchicon.svg";
 import Logo from "../../icons/dschool_logo1.png";
 import { Link } from "react-router-dom";
 
-export default function Search() {
+export default function SearchComponents() {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const handleSearch = (e) => {

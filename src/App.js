@@ -5,6 +5,7 @@ import Home from './pages/home';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import item from './dummy/item.json';
 import Board from './pages/board';
+import Search from './pages/search';
 
 function App() {
   const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.
@@ -25,6 +26,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/board/:item_idx' element={<Board />} />
+            <Route path='/search' element={<Search />} />
           </Routes>
         </BrowserRouter>
       </div>

@@ -34,7 +34,7 @@ export default function Post() {
     console.log(postData)
 
     return (
-        <div className='w-full flex justify-center p-2'>
+        <div className='flex justify-center p-2'>
             <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
                 {currentItems.map((item, index) => (
                     <Link to={`/board/${item._source.item_idx}`} key={index}>
