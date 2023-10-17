@@ -1,6 +1,5 @@
 import Header from "../component/header/header";
 import SearchComponents from "../component/header/search";
-import Search from "../component/header/search";
 import Post from "../component/post";
 
 export default function Home() {

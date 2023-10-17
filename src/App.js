@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import item from './dummy/item.json';
 import Board from './pages/board';
 import Search from './pages/search';
+import axios from 'axios';
 
 function App() {
   const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.
@@ -17,6 +18,22 @@ function App() {
     setPostData(item); // 배열로 변환하여 설정합니다.
     setLoading(false);
   }, []);
+
+  // const [data, setData] = useState({});
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:8000/api/search");  // FastAPI 서버 주소
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
 
   const queryClient = new QueryClient();
   return (

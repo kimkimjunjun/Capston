@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import item from '../dummy/item.json';
 import '../App.css';
 import Pagination from './pagination';
@@ -7,31 +8,45 @@ import replie from "../icons/replie.png";
 
 export default function Post() {
     const [postData, setPostData] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
     const [itemsPerPage] = useState(4); // 한 페이지에 표시할 항목 수
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        // JSON 파일의 경로를 설정합니다.
-        setPostData(item);
-        setLoading(false);
+        async function fetchData() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/items');
+                const responseData = response.data;
+                setData(responseData.hits.hits);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        fetchData();
     }, []);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    // useEffect(() => {
+    //     setPostData(item);
+    //     setLoading(false);
+    // }, []);
+
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
 
     // 현재 페이지의 데이터 범위 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = postData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
     // 페이지 번호 변경 시 호출할 함수
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
-    console.log(postData)
+    // console.log(postData);
+    console.log(data);
 
     return (
         <div className='flex justify-center p-2'>
@@ -40,8 +55,8 @@ export default function Post() {
                     <Link to={`/board/${item._source.item_idx}`} key={index}>
                         <div className='w-full p-3 pr-8'>
                             <div className='w-full h-fit mb-5'>
-                                <div className='flex mb-2 space-x-2 font-bold'>
-                                    <h1>{item._source.subject}</h1>
+                                <div className='flex mb-2 space-x-2 font-bold items-center'>
+                                    <h1 className=' max-w-xs'>{item._source.subject}</h1>
                                     <span className='text-[#a5a5a5]'>{item._source.created_at}</span>
                                     <span className='text-[#a5a5a5] flex'>
                                         <img
@@ -62,7 +77,7 @@ export default function Post() {
                 {/* 페이지네이션 컴포넌트 */}
                 <Pagination
                     itemsPerPage={itemsPerPage}
-                    totalItems={postData.length}
+                    totalItems={data.length}
                     paginate={paginate}
                     currentPage={currentPage}
                 />
