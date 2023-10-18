@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import replie from "../icons/replie.png";
 
 export default function Post() {
-    const [postData, setPostData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
     const [itemsPerPage] = useState(4); // 한 페이지에 표시할 항목 수
     const [data, setData] = useState([]);

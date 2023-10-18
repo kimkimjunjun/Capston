@@ -10,7 +10,7 @@ export default function SearchComponents() {
 
     const handleSearch = async () => {
         try {
-            const response = await axios.get(`/search?query=${query}`); // FastAPI 엔드포인트에 요청 보내기
+            const response = await axios.get(`http://127.0.0.1:8000/search?query=${query}`); // FastAPI 엔드포인트에 요청 보내기
             const data = response.data;
             console.log(data);
             setResults(data.hits);
@@ -18,7 +18,7 @@ export default function SearchComponents() {
             console.error("Error:", error);
         }
     };
-
+    console.log(results)
 
 
     return (
