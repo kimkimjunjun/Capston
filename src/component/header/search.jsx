@@ -1,12 +1,15 @@
 import { useState } from "react";
 import searchicon from "../../icons/searchicon.svg";
 import Logo from "../../icons/dschool_logo1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-export default function SearchComponents() {
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
+export default function SearchComponents({ query, setQuery, results, setResults }) {
+    // const [query, setQuery] = useState("");
+    // const [results, setResults] = useState([]);
+
+
+    const navigate = useNavigate()
 
     const handleSearch = async () => {
         try {
@@ -14,6 +17,7 @@ export default function SearchComponents() {
             const data = response.data;
             console.log(data);
             setResults(data.hits);
+            navigate(`/search/${query}`);
         } catch (error) {
             console.error("Error:", error);
         }
@@ -52,11 +56,11 @@ export default function SearchComponents() {
                     #
                 </div>
             </div>
-            <ul>
+            {/* <ul>
                 {results.map((result) => (
                     <li key={result._id}>{result._source.subject}</li>
                 ))}
-            </ul>
+            </ul> */}
         </div>
     );
 }

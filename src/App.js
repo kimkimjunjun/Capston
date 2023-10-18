@@ -1,6 +1,6 @@
 // App.js
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Home from './pages/home';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import item from './dummy/item.json';
@@ -9,15 +9,35 @@ import Search from './pages/search';
 import axios from 'axios';
 
 function App() {
-  const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.
-  const [loading, setLoading] = useState(true);
-
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
 
   useEffect(() => {
-    // JSON 파일의 경로를 설정합니다.
-    setPostData(item); // 배열로 변환하여 설정합니다.
-    setLoading(false);
+    async function fetchData() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/search?query=${query}`); // FastAPI 엔드포인트에 요청 보내기
+        const data = response.data;
+        console.log(data);
+        setResults(data.hits);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchData();
   }, []);
+
+  console.log(results)
+
+  // const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.
+  // const [loading, setLoading] = useState(true);
+
+
+  // useEffect(() => {
+  //   // JSON 파일의 경로를 설정합니다.
+  //   setPostData(item); // 배열로 변환하여 설정합니다.
+  //   setLoading(false);
+  // }, []);
 
   // const [data, setData] = useState({});
 
@@ -43,7 +63,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/board/:item_idx' element={<Board />} />
-            <Route path='/search' element={<Search />} />
+            <Route path={`/search/${query}`} element={<Search />} />
           </Routes>
         </BrowserRouter>
       </div>

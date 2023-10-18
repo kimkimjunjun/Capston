@@ -81,7 +81,6 @@ export default function Home() {
                             <span className='flex'><p className='font-bold text-red-600'>홍길동</p>님을 위한 추천글</span>
                         </div>
                         <div className='w-full h-0.5 bg-[#d6d6d6]' />
-
                     </div>
                 </div>
             </div>
