@@ -4,12 +4,13 @@ import '../App.css';
 import BackButton from '../component/backbutton';
 import TopButton from '../component/topbutton';
 import { useParams } from 'react-router-dom';
-import Header from '../component/header/header';
-import SearchComponents from '../component/header/search';
+import Header from '../component/headerA';
 
 export default function Board() {
     const [data, setData] = useState([]);
     const { item_idx } = useParams();
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -29,8 +30,7 @@ export default function Board() {
 
     return (
         <div>
-            <SearchComponents />
-            <Header />
+            <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
             <div className='w-full flex justify-center mx-auto bg-gray-200'>
                 <div className='p-2'>
                     {selectedPost ? (

@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import Header from "../component/header/header";
-import SearchComponents from "../component/header/search";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../component/pagination";
 import replie from '../icons/replie.png'
+import Header from "../component/headerA";
 
 export default function Home() {
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
     const [itemsPerPage] = useState(4); // 한 페이지에 표시할 항목 수
     const [data, setData] = useState([]);
+    const [query, setQuery] = useState('');
+    const [results, setResults] = useState([]);
+
 
     useEffect(() => {
         async function fetchData() {
@@ -40,8 +42,7 @@ export default function Home() {
 
     return (
         <div className="flex flex-col">
-            <SearchComponents />
-            <Header />
+            <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
             <div className=" bg-gray-200 h-screen">
                 <div className='flex justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>

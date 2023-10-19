@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import Header from "../component/header/header";
-import SearchComponents from "../component/header/search";
 import replie from "../icons/replie.png";
 import axios from "axios";
 import Pagination from "../component/pagination";
 import { Link } from "react-router-dom";
+import Header from "../component/headerA";
 
 export default function Search() {
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
@@ -24,7 +23,7 @@ export default function Search() {
             }
         }
         fetchData();
-    }, []);
+    }, [query]);
 
 
 
@@ -38,12 +37,12 @@ export default function Search() {
         setCurrentPage(pageNumber);
     };
 
+
     console.log(results);
 
     return (
         <div className="flex flex-col">
-            <SearchComponents query={query} setQuery={setQuery} results={results} setResults={setResults} />
-            <Header />
+            <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
             <div className=" bg-gray-200 h-screen">
                 <div className='flex justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
