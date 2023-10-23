@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import searchicon from "../icons/searchicon.svg";
 import Logo from "../icons/dschool_logo1.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ export default function Header({ query, setQuery, results, setResults }) {
                         src={Logo}
                         alt="logo"
                     />
-                    <h1 className="text-sm font-medium mt-1">강남서초송파 학부모 커뮤니티</h1>
+                    <h1 className="text-sm font-medium mt-1 font-sans">강남서초송파 학부모 커뮤니티</h1>
                 </Link>
                 <div className="w-[30rem] h-10 flex border pl-2 ml-10 border-red-600 items-center self-center">
                     <input

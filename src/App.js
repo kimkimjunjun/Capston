@@ -62,7 +62,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/board/:item_idx' element={<Board />} />
-            <Route path='/search/:query' element={<Search />} />
+            <Route path='/search/:query' element={<Search setQuery={setQuery} />} />
           </Routes>
         </BrowserRouter>
       </div>

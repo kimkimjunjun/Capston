@@ -5,11 +5,10 @@ import Pagination from "../component/pagination";
 import { Link, useParams } from "react-router-dom";
 import Header from "../component/headerA";
 
-export default function Search() {
+export default function Search({ setQuery }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
     const { query } = useParams(); // 동적 파라미터로 검색 쿼리를 받아옵니다.
-    const [setQuery] = useState('');
     const [results, setResults] = useState([]);
 
     useEffect(() => {
@@ -41,13 +40,14 @@ export default function Search() {
 
     console.log(results);
 
+
     return (
         <div className="flex flex-col">
             <Header query={query} setQuery={setQuery} results={results} />
             <div className=" bg-gray-200 h-screen">
-                <div className='flex justify-center p-2'>
+                {<div className='flex justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
-                        {currentItems.map((item, index) => (
+                        {results === '' ? <div>검색 결과가 없습니다.</div> : currentItems.map((item, index) => (
                             <Link to={`/board/${item._source.item_idx}`} key={index}>
                                 <div className='w-full p-3 pr-8'>
                                     <div className='w-full h-fit mb-5'>
@@ -84,7 +84,7 @@ export default function Search() {
                         <div className='w-full h-0.5 bg-[#d6d6d6]' />
 
                     </div>
-                </div>
+                </div>}
             </div>
         </div>
     )
