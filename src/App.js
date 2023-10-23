@@ -1,9 +1,8 @@
 // App.js
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import item from './dummy/item.json';
 import Board from './pages/board';
 import Search from './pages/search';
 import axios from 'axios';
@@ -25,7 +24,7 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [query]);
 
   console.log(results)
 
@@ -63,7 +62,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/board/:item_idx' element={<Board />} />
-            <Route path={`/search/${query}`} element={<Search />} />
+            <Route path='/search/:query' element={<Search />} />
           </Routes>
         </BrowserRouter>
       </div>

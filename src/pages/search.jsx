@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import replie from "../icons/replie.png";
 import axios from "axios";
 import Pagination from "../component/pagination";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Header from "../component/headerA";
 
 export default function Search() {
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
-    const [itemsPerPage] = useState(4); // 한 페이지에 표시할 항목 수
-    const [query, setQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(4);
+    const { query } = useParams(); // 동적 파라미터로 검색 쿼리를 받아옵니다.
+    const [setQuery] = useState('');
     const [results, setResults] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/search?query=${query}`); // FastAPI 엔드포인트에 요청 보내기
+                const response = await axios.get(`http://127.0.0.1:8000/search?query=${query}`);
                 const data = response.data;
                 console.log(data);
                 setResults(data.hits);
@@ -42,7 +43,7 @@ export default function Search() {
 
     return (
         <div className="flex flex-col">
-            <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
+            <Header query={query} setQuery={setQuery} results={results} />
             <div className=" bg-gray-200 h-screen">
                 <div className='flex justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
@@ -68,7 +69,6 @@ export default function Search() {
                                 </div>
                             </Link>
                         ))}
-
                         {/* 페이지네이션 컴포넌트 */}
                         <Pagination
                             itemsPerPage={itemsPerPage}
