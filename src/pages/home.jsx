@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../component/pagination";
@@ -7,26 +7,37 @@ import Header from "../component/headerA";
 import Posting from "../component/recommend/posting";
 
 export default function Home() {
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
-    const [itemsPerPage] = useState(4); // 한 페이지에 표시할 항목 수
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(4);
     const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
 
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await axios.get('http://127.0.0.1:8000/items');
+            const responseData = response.data;
+            setData(responseData.hits.hits);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }, []);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/items');
-                const responseData = response.data;
-                setData(responseData.hits.hits);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
         fetchData();
-    }, []);
+    }, [fetchData]);
+
+    // 클릭한 게시글의 조회수를 증가시키는 함수
+    const increaseClicked = async (item_idx) => {
+        try {
+            // 서버에 PUT 요청을 보내 조회수 증가
+            await axios.put(`http://127.0.0.1:8000/items/${item_idx}/increase-clicked`);
+            // 조회수 증가가 성공한 후, 데이터를 다시 가져옵니다.
+            fetchData();
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
     // 현재 페이지의 데이터 범위 계산
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -45,15 +56,16 @@ export default function Home() {
         <div className="flex flex-col">
             <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
             <div className=" bg-gray-200 h-screen">
-                <div className='flex justify-center p-2'>
+                <div className='flex h-[37rem] justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
                         {currentItems.map((item, index) => (
-                            <Link to={`/board/${item._source.item_idx}`} key={index}>
+                            <Link to={`/board/${item._source.item_idx}`} key={index} onClick={() => increaseClicked(item._source.item_idx)}>
                                 <div className='w-full p-3 pr-8'>
                                     <div className='w-full h-fit mb-5'>
                                         <div className='flex mb-2 space-x-2 font-bold items-center'>
                                             <h1 className=' max-w-xs'>{item._source.subject}</h1>
                                             <span className='text-[#a5a5a5]'>{item._source.created_at}</span>
+                                            <span>{item._source.clicked}</span>
                                             <span className='text-[#a5a5a5] flex'>
                                                 <img
                                                     className='w-5 h-5 flex self-center mt-1 mr-1'

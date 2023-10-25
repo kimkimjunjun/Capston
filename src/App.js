@@ -1,11 +1,10 @@
 // App.js
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/home';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Board from './pages/board';
 import Search from './pages/search';
-import axios from 'axios';
 
 function App() {
   // const [postData, setPostData] = useState([]); // postData를 배열로 초기화합니다.

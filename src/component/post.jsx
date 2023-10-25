@@ -44,7 +44,6 @@ export default function Post() {
         setCurrentPage(pageNumber);
     };
 
-    // console.log(postData);
     console.log(data);
 
     return (
