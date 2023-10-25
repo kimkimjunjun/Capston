@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Pagination from "../component/pagination";
 import replie from '../icons/replie.png'
 import Header from "../component/headerA";
+import Posting from "../component/recommend/posting";
 
 export default function Home() {
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
@@ -82,6 +83,7 @@ export default function Home() {
                             <span className='flex'><p className='font-bold text-red-600'>홍길동</p>님을 위한 추천글</span>
                         </div>
                         <div className='w-full h-0.5 bg-[#d6d6d6]' />
+                        <Posting />
                     </div>
                 </div>
             </div>
