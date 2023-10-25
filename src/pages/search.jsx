@@ -5,16 +5,17 @@ import Pagination from "../component/pagination";
 import { Link, useParams } from "react-router-dom";
 import Header from "../component/headerA";
 
-export default function Search({ setQuery }) {
+export default function Search() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(4);
-    const { query } = useParams(); // 동적 파라미터로 검색 쿼리를 받아옵니다.
+    const [query, setQuery] = useState("");
+    const params = useParams(); // 동적 파라미터로 검색 쿼리를 받아옵니다.
     const [results, setResults] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/search?query=${query}`);
+                const response = await axios.get("http://127.0.0.1:8000/search?query=" + params.result);
                 const data = response.data;
                 console.log(data);
                 setResults(data.hits);
@@ -23,7 +24,7 @@ export default function Search({ setQuery }) {
             }
         }
         fetchData();
-    }, [query]);
+    }, [params.result]);
 
 
 
@@ -43,7 +44,7 @@ export default function Search({ setQuery }) {
 
     return (
         <div className="flex flex-col">
-            <Header query={query} setQuery={setQuery} results={results} />
+            <Header query={query} setQuery={setQuery} results={results} setResults={setResults} />
             <div className=" bg-gray-200 h-screen">
                 {<div className='flex justify-center p-2'>
                     <div className='w-[40rem] border border-[#d6d6d6] bg-white'>
