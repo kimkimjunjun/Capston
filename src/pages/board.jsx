@@ -41,9 +41,11 @@ export default function Board() {
                                     <h1 className='w-fit p-1 px-3 pb-5 text-2xl font-medium'>{selectedPost._source.subject}</h1>
                                 </div>
                                 <div className='w-full h-0.5 bg-[#d6d6d6]' />
-                                <div className='p-2.5 space-x-3 text-[#646464]'>
+                                <div className='p-2.5 space-x-3 text-[#646464] flex'>
                                     <span className='text-[#2f9741] font-bold'>{selectedPost._source.author_nick}</span>
-                                    <span>조회수</span>
+                                    <hr className="bg-[#a5a5a5] w-0.5 h-4 self-center" />
+                                    <span>조회수 {selectedPost._source.clicked}</span>
+                                    <hr className="bg-[#a5a5a5] w-0.5 h-4 self-center" />
                                     <span>{selectedPost._source.created_at}</span>
                                 </div>
                                 <div className='w-full h-0.5 bg-[#d6d6d6]' />
